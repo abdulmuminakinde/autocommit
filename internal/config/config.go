@@ -13,7 +13,7 @@ const (
 	Groq   AIProvider = "groq"
 )
 
-type Config struct {
+type ConfigManager struct {
 	Provider AIProvider
 	OpenAI   *openai.Config
 	Groq     *groq.Config
