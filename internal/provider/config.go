@@ -1,11 +1,17 @@
 package provider
 
-// AIProviderImpl is a struct that implements the AIProvider interface
-type AIProviderImpl struct {
-	Name          string
-	AllowedModels []string
-}
+import (
+	"context"
+	"net/http"
+)
 
 type AIProvider interface {
-	ValidateAPIKey(string) error
+	GetName() string
+	ValidateAPIKey(ctx context.Context) error
+	GetModels() []string
+	DefaultConfig() interface{}
+}
+
+type HTTPClient interface {
+	Do(*http.Request) (*http.Response, error)
 }
