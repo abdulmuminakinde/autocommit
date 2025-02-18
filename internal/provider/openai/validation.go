@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/christian-gama/autocommit/internal/provider"
 )
 
 // ValidateTemperature validates the temperature for the OpenAI API.
@@ -16,9 +18,7 @@ func ValidateTemperature(temperature float32) error {
 
 // ValidateApiKey validates the API key for the OpenAI API. It does so
 // by making a request to the models endpoint - if it fails, the API key is invalid.
-func ValidateApiKey(apiKey string) error {
-	const openAIModelsURL = "https://api.openai.com/v1/models"
-
+func (ai *provider.AIProvider) ValidateApiKey(modelURL, apiKey string) error {
 	if apiKey == "" {
 		return errors.New("API key cannot be empty")
 	}
@@ -27,7 +27,7 @@ func ValidateApiKey(apiKey string) error {
 		return errors.New("API key cannot be empty")
 	}
 
-	httpRequest, err := httpRequest(http.MethodGet, openAIModelsURL, apiKey)
+	httpRequest, err := httpRequestWithAuth(http.MethodGet, modelURL, apiKey)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)
 	}

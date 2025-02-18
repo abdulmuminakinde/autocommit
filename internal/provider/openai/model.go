@@ -1,21 +1,5 @@
 package openai
 
-// Config is the configuration for the OpenAI API.
-type Config struct {
-	ApiKey      string  `json:"openai_api_key"`
-	Temperature float32 `json:"openai_temperature"`
-	Model       string  `json:"openai_model"`
-}
-
-// NewConfig creates a new Config.
-func NewConfig(apiKey, model string, temperature float32) *Config {
-	return &Config{
-		ApiKey:      apiKey,
-		Temperature: temperature,
-		Model:       model,
-	}
-}
-
 // System is the system configuration for the OpenAI API - the initial message and name.
 type System struct {
 	Message string
@@ -28,7 +12,6 @@ func NewSystem(message, name string) *System {
 		Message: message,
 		Name:    name,
 	}
-
 }
 
 const (
